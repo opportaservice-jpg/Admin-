@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#102a22"><title>CARGIL — Connexion administrateur</title>
+<style>
+:root{--green:#102a22;--green2:#1c4a39;--ink:#18231e;--muted:#718078;--line:#e5ebe6;--red:#b42318}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#f3f6f3}
+body{min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 85% 8%,#dce9df 0,transparent 32%),radial-gradient(circle at 5% 95%,#e9e2cf 0,transparent 28%),#f3f6f3}
+.shell{width:100%;max-width:440px;background:#fff;border:1px solid #e8eee9;border-radius:24px;overflow:hidden;box-shadow:0 22px 70px #102a2212}
+.hero{background:linear-gradient(145deg,#102a22,#1b4938);color:#fff;padding:30px 26px 28px;position:relative;overflow:hidden}
+.hero:before,.hero:after{content:"";position:absolute;border:1px solid #ffffff18;border-radius:50%;width:230px;height:230px;right:-110px;top:-145px}.hero:after{width:165px;height:165px;right:-76px;top:-112px}
+.brand{display:flex;align-items:center;gap:12px;position:relative;z-index:1}.mark{width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,#f0d99d,#c79d4c);display:grid;place-items:center;color:#173629;font-weight:900;font-size:22px}.brand-name{font-size:20px;font-weight:850;letter-spacing:2.8px}.brand-sub{font-size:9px;letter-spacing:2px;color:#d8e5dc;margin-top:3px}
+.tag{display:inline-flex;align-items:center;gap:8px;margin-top:27px;padding:7px 11px;border-radius:30px;background:#ffffff12;border:1px solid #ffffff25;color:#f0e2bf;font-size:10px;font-weight:800;letter-spacing:1.2px;position:relative;z-index:1}.tag:before{content:"";width:6px;height:6px;border-radius:50%;background:#e0bd75}
+h1{font-size:27px;line-height:1.18;letter-spacing:-.6px;margin:15px 0 7px;position:relative;z-index:1}.hero p{margin:0;color:#d3e0d8;font-size:12px;line-height:1.6;max-width:320px;position:relative;z-index:1}
+.content{padding:27px 25px 26px}.section-title{font-size:18px;font-weight:850;margin:0 0 5px}.section-note{font-size:12px;color:var(--muted);margin:0 0 23px;line-height:1.5}.field{margin-bottom:17px}label{display:block;font-size:12px;font-weight:750;margin-bottom:8px;color:#33433a}
+.control{height:51px;border:1px solid var(--line);border-radius:12px;background:#fbfcfb;display:flex;align-items:center}.control:focus-within{border-color:#799b86;box-shadow:0 0 0 3px #1c4a3910;background:#fff}.control select,.control input{border:0;outline:0;background:transparent;width:100%;height:100%;padding:0 13px;color:var(--ink);font:inherit;font-size:14px;min-width:0}
+.phone-control .dial{width:100px;flex:0 0 100px;border-right:1px solid var(--line);height:100%}.phone-control .dial select{font-size:13px;font-weight:750;padding:0 8px 0 12px}.phone-control input{padding-left:12px}
+.password-wrap{position:relative;width:100%;height:100%}.password-wrap input{padding-right:48px}.eye{position:absolute;right:6px;top:6px;width:38px;height:38px;border:0;background:transparent;color:#77847c;border-radius:9px;cursor:pointer;font-size:15px}
+.submit{height:52px;width:100%;border:0;border-radius:13px;background:linear-gradient(110deg,#173e30,#245a43);color:#fff;font-size:13px;font-weight:850;box-shadow:0 8px 18px #153e3025;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:8px}.submit:disabled{opacity:.65;cursor:wait}
+.message{display:none;padding:11px 12px;border-radius:10px;font-size:12px;line-height:1.5;margin:0 0 15px}.message.error{display:block;background:#fff1f0;color:var(--red);border:1px solid #ffd6d2}.message.success{display:block;background:#eef8f0;color:#17613b;border:1px solid #ccebd5}
+.security{display:flex;gap:9px;align-items:flex-start;margin-top:19px;padding:12px;border:1px solid #e8eee9;border-radius:11px;background:#f8faf8;color:#68766e;font-size:10px;line-height:1.5}.security strong{display:block;color:#34453b;font-size:10px;margin-bottom:2px}.lock{width:25px;height:25px;flex:0 0 25px;border-radius:8px;background:#eaf1eb;display:grid;place-items:center;color:#28533e}
+.footer{text-align:center;padding:0 20px 22px;color:#9aa49e;font-size:10px}.spinner{width:15px;height:15px;border:2px solid #ffffff66;border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:480px){body{padding:0;background:#fff}.shell{min-height:100vh;max-width:none;border:0;border-radius:0;box-shadow:none;display:flex;flex-direction:column}.hero{border-radius:0 0 25px 25px;padding-top:34px}.content{flex:1;padding-top:30px}.footer{padding-bottom:24px}}
+</style></head><body>
+<main class="shell"><header class="hero"><div class="brand"><div class="mark">C</div><div><div class="brand-name">CARGIL</div><div class="brand-sub">INVESTIR · CONSTRUIRE · GRANDIR</div></div></div><div class="tag">ESPACE ADMINISTRATION</div><h1>Connexion<br>sécurisée.</h1><p>Accès réservé aux administrateurs autorisés de la plateforme CARGIL.</p></header>
+<section class="content"><h2 class="section-title">Authentification</h2><p class="section-note">Utilisez votre compte administrateur CARGIL pour accéder au panel de gestion.</p><div id="message" class="message" role="status" aria-live="polite"></div>
+<form id="loginForm" novalidate>
+<div class="field"><label for="country">Pays du compte</label><div class="control"><select id="country" required><option value="BF" selected>Burkina Faso (+226)</option><option value="CI">Côte d’Ivoire (+225)</option><option value="BJ">Bénin (+229)</option><option value="TG">Togo (+228)</option><option value="CM">Cameroun (+237)</option></select></div></div>
+<div class="field"><label for="phone">Numéro de téléphone</label><div class="control phone-control"><div class="dial"><select id="dialCode" aria-label="Indicatif"><option value="+226">+226</option><option value="+225">+225</option><option value="+229">+229</option><option value="+228">+228</option><option value="+237">+237</option></select></div><input id="phone" type="tel" inputmode="numeric" autocomplete="username" placeholder="Numéro sans indicatif" maxlength="15" required></div></div>
+<div class="field"><label for="password">Mot de passe administrateur</label><div class="control"><div class="password-wrap"><input id="password" type="password" autocomplete="current-password" placeholder="Votre mot de passe" maxlength="128" required><button class="eye" type="button" id="togglePassword" aria-label="Afficher le mot de passe">◉</button></div></div></div>
+<button class="submit" id="submitBtn" type="submit"><span id="buttonText">Accéder au panel</span><span aria-hidden="true">→</span></button></form>
+<div class="security"><div class="lock">▣</div><div><strong>Accès protégé</strong>Les comptes utilisateurs ordinaires ne peuvent pas accéder à cet espace. Le rôle administrateur est vérifié par le serveur.</div></div></section><footer class="footer">© <span id="year"></span> CARGIL · Administration</footer></main>
+<script>
+const API_URL='https://qixliwrgscpdjplvglvq.supabase.co/functions/v1/cargil-api';
+const SESSION_KEY='cargil_admin_session_token',USER_KEY='cargil_admin_user';
+const countries={BF:'+226',CI:'+225',BJ:'+229',TG:'+228',CM:'+237'};
+const $=id=>document.getElementById(id);$('year').textContent=new Date().getFullYear();
+function syncDial(){$('dialCode').value=countries[$('country').value]||'+226'}
+$('country').addEventListener('change',syncDial);
+$('dialCode').addEventListener('change',()=>{const found=Object.keys(countries).find(k=>countries[k]===$('dialCode').value);if(found)$('country').value=found});
+$('phone').addEventListener('input',()=>{$('phone').value=$('phone').value.replace(/\D/g,'').slice(0,15)});
+$('togglePassword').addEventListener('click',()=>{$('password').type=$('password').type==='password'?'text':'password'});
+function showMessage(t,type){$('message').textContent=t;$('message').className='message '+type}
+async function logoutTemporary(token){try{await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({action:'logout'})})}catch(_){}}
+$('loginForm').addEventListener('submit',async e=>{
+e.preventDefault();$('message').className='message';
+const telephone=$('phone').value.trim(),password=$('password').value,pays_id=$('country').value;
+if(telephone.length<6){showMessage('Veuillez saisir un numéro de téléphone valide.','error');return}
+if(!password){showMessage('Veuillez saisir votre mot de passe.','error');return}
+$('submitBtn').disabled=true;$('buttonText').textContent='Vérification…';
+const spinner=document.createElement('span');spinner.className='spinner';spinner.id='spinner';$('submitBtn').prepend(spinner);
+try{
+const response=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({action:'login',pays_id,telephone,password})});
+const data=await response.json().catch(()=>({error:'REPONSE_SERVEUR_INVALIDE'}));
+if(!response.ok||!data.success){const errors={IDENTIFIANTS_INVALIDES:'Numéro ou mot de passe incorrect.',COMPTE_INTROUVABLE:'Aucun compte ne correspond à ces informations.',COMPTE_BLOQUE:'Ce compte est bloqué.',TROP_DE_TENTATIVES:'Trop de tentatives. Veuillez patienter avant de réessayer.',PAYS_NON_AUTORISE:'Ce pays n’est pas autorisé.'};throw new Error(errors[data.error]||'Connexion impossible. Vérifiez vos identifiants.')}
+const token=data.session?.token,user=data.utilisateur||{};
+if(!token)throw new Error('Le serveur n’a pas retourné de session. Réessayez.');
+if(String(user.role||'').toLowerCase()!=='admin'){await logoutTemporary(token);throw new Error('Accès refusé : ce compte ne possède pas les droits administrateur.')}
+localStorage.setItem(SESSION_KEY,token);localStorage.setItem(USER_KEY,JSON.stringify(user));
+showMessage('Authentification validée. Ouverture du panel…','success');$('buttonText').textContent='Accès autorisé';setTimeout(()=>location.href='admin.html',650);
+}catch(err){showMessage(err.message||'Impossible de contacter le serveur. Vérifiez votre connexion Internet.','error');$('submitBtn').disabled=false;$('buttonText').textContent='Accéder au panel';$('spinner')?.remove()}
+});
+</script></body></html>
