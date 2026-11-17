@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101827">
+<title>CARGIL — Administration</title>
+<style>
+:root{--bg:#f3f5f8;--panel:#fff;--ink:#182230;--muted:#788394;--line:#e7ebf0;--nav:#101827;--gold:#d5a43b;--green:#16845b;--red:#c74343;--blue:#3269c8;--shadow:0 8px 26px rgba(20,32,52,.06)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}.app{min-height:100vh;display:flex}
+.sidebar{width:248px;background:var(--nav);color:#fff;padding:24px 16px;display:flex;flex-direction:column;position:fixed;inset:0 auto 0 0;z-index:5}
+.brand{display:flex;align-items:center;gap:12px;padding:4px 10px 28px;border-bottom:1px solid #293244}
+.brand-mark{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#e8bd58,#b9821f);display:grid;place-items:center;color:#142033;font-weight:900;font-size:19px}
+.brand strong{font-size:17px;letter-spacing:1.5px}.brand small{display:block;color:#9da8b8;font-size:11px;letter-spacing:.8px;margin-top:2px}
+.nav{display:grid;gap:6px;padding-top:22px}.nav button{background:transparent;color:#aeb8c8;text-align:left;padding:12px 13px;border-radius:10px;display:flex;gap:12px;align-items:center;font-weight:600}.nav button.active,.nav button:hover{background:#263247;color:#fff}.nav .ico{width:20px;text-align:center;color:#d6b05b;font-size:16px}
+.sidebar-foot{margin-top:auto;border-top:1px solid #293244;padding:16px 10px 0;color:#99a5b7;font-size:12px}
+.main{margin-left:248px;width:calc(100% - 248px);padding:26px 30px 48px;max-width:1600px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:24px}.topbar h1{font-size:24px;margin:0;font-weight:800;letter-spacing:-.5px}.sub{color:var(--muted);margin-top:4px}.admin-pill{background:#fff;border:1px solid var(--line);padding:9px 13px;border-radius:999px;font-size:12px;font-weight:700;display:flex;align-items:center;gap:8px}.dot{width:8px;height:8px;background:#25a36f;border-radius:50%}
+.mobile-head{display:none}.section{display:none}.section.active{display:block}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:17px;box-shadow:var(--shadow);min-width:0}.stat .label{font-size:12px;color:var(--muted);font-weight:650}.stat .value{font-size:25px;font-weight:850;margin:7px 0 3px;letter-spacing:-.6px}.stat .hint{font-size:11px;color:var(--muted)}
+.panel{background:#fff;border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:18px}.panel-head{padding:17px 19px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}.panel-head h2{margin:0;font-size:16px}.panel-body{padding:18px}.muted{color:var(--muted)}.toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.search{border:1px solid var(--line);border-radius:9px;padding:10px 12px;min-width:210px;outline:none;background:#fff}.search:focus,input:focus,textarea:focus{border-color:#b98a2d;outline:none}
+.btn{padding:9px 12px;border-radius:8px;font-weight:700;font-size:12px}.primary{background:#18263b;color:#fff}.gold{background:#f3e6c7;color:#805b14}.success{background:#e0f4eb;color:#08734a}.danger{background:#fde9e9;color:#a52c2c}.neutral{background:#edf1f5;color:#3c4859}.btn:disabled{opacity:.45;cursor:not-allowed}
+.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;min-width:680px}th,td{text-align:left;padding:13px 16px;border-bottom:1px solid #edf0f4;white-space:nowrap}th{font-size:11px;color:#7d8795;text-transform:uppercase;letter-spacing:.5px;background:#fbfcfd}td{font-size:13px}tr:last-child td{border-bottom:0}.status{padding:5px 8px;border-radius:999px;font-size:10px;font-weight:800;display:inline-block}.pending{background:#fff2d8;color:#94610c}.ok{background:#e2f5eb;color:#08724a}.bad{background:#fde8e8;color:#a32e2e}.blocked{background:#edf0f4;color:#596475}
+.empty{padding:34px 15px;text-align:center;color:var(--muted)}.loader{padding:26px;text-align:center;color:var(--muted)}
+.user-cell{display:flex;align-items:center;gap:10px}.avatar{width:34px;height:34px;border-radius:50%;background:#e9edf4;display:grid;place-items:center;font-weight:800;color:#34445d}
+.buzz-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.buzz-card{border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#fff}.buzz-images{display:grid;grid-template-columns:1fr 1fr;gap:3px;background:#e9edf2;max-height:270px}.buzz-images img{width:100%;height:245px;object-fit:cover;display:block;background:#edf0f4}.buzz-content{padding:14px}.buzz-content p{margin:9px 0;color:#465264;white-space:pre-wrap}.buzz-meta{font-size:11px;color:var(--muted)}.buzz-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:12px}.reward{width:125px;border:1px solid var(--line);border-radius:8px;padding:9px}
+.modal-back{position:fixed;inset:0;background:#0b1424a8;z-index:20;display:none;align-items:center;justify-content:center;padding:16px}.modal-back.show{display:flex}.modal{background:#fff;border-radius:15px;width:min(460px,100%);padding:21px;box-shadow:0 20px 70px #0003}.modal h3{margin:0 0 14px}.field{display:grid;gap:6px;margin:12px 0}.field label{font-size:12px;font-weight:700;color:#536073}.field input,.field textarea,.field select{width:100%;padding:11px;border:1px solid var(--line);border-radius:9px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:17px}
+.toast{position:fixed;bottom:20px;right:20px;background:#172338;color:#fff;padding:12px 16px;border-radius:10px;box-shadow:var(--shadow);z-index:40;display:none;max-width:90vw}.toast.show{display:block}
+.alert{padding:12px 14px;background:#fff4df;border:1px solid #f0d9a9;color:#805b14;border-radius:10px;margin-bottom:15px;font-size:12px}
+@media(max-width:1050px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.main{padding:22px 20px}}
+@media(max-width:720px){.sidebar{display:none}.main{margin:0;width:100%;padding:16px 13px 88px}.mobile-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.mobile-brand{font-weight:900;letter-spacing:1.2px}.mobile-brand span{color:#bd8a2b}.topbar{margin-bottom:17px}.topbar h1{font-size:21px}.admin-pill{padding:8px 10px}.cards{gap:9px}.stat{padding:13px;border-radius:12px}.stat .value{font-size:20px}.stat .label{font-size:11px}.buzz-grid{grid-template-columns:1fr}.buzz-images img{height:205px}.panel-head{padding:14px}.panel-body{padding:13px}.search{min-width:0;width:100%}.toolbar{width:100%}.bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#fff;border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:8px 3px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -4px 18px #1522380b}.bottom-nav button{background:none;color:#667285;font-size:10px;font-weight:700;display:grid;gap:3px;justify-items:center;padding:3px 5px}.bottom-nav button b{font-size:17px;font-weight:500}.bottom-nav button.active{color:#a87922}.hide-mobile{display:none}}
+@media(min-width:721px){.bottom-nav{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+ <div class="brand"><div class="brand-mark">C</div><div><strong>CARGIL</strong><small>ADMINISTRATION</small></div></div>
+ <nav class="nav" id="sideNav">
+  <button class="active" data-page="stats"><span class="ico">▦</span>Vue générale</button>
+  <button data-page="deposits"><span class="ico">＋</span>Dépôts</button>
+  <button data-page="withdrawals"><span class="ico">↗</span>Retraits</button>
+  <button data-page="users"><span class="ico">♙</span>Utilisateurs</button>
+  <button data-page="buzz"><span class="ico">▧</span>Buzz / Publications</button>
+ </nav>
+ <div class="sidebar-foot">Espace sécurisé<br>Administration CARGIL</div>
+</aside>
+<main class="main">
+ <div class="mobile-head"><div class="mobile-brand"><span>C</span> CARGIL <small style="font-weight:500;color:#8993a2">ADMIN</small></div><button class="btn neutral" id="logoutTop">Déconnexion</button></div>
+ <header class="topbar"><div><h1 id="pageTitle">Vue générale</h1><div class="sub" id="pageSub">Suivi et contrôle de la plateforme</div></div><div class="admin-pill"><i class="dot"></i> Session administrateur</div></header>
+
+ <section class="section active" id="page-stats">
+  <div class="cards">
+   <div class="stat"><div class="label">Utilisateurs inscrits</div><div class="value" id="sUsers">—</div><div class="hint" id="sActive">Comptes actifs : —</div></div>
+   <div class="stat"><div class="label">Solde total des portefeuilles</div><div class="value" id="sBalance">—</div><div class="hint">Somme des soldes enregistrés</div></div>
+   <div class="stat"><div class="label">Dépôts en attente</div><div class="value" id="sDeposits">—</div><div class="hint">Demandes à examiner</div></div>
+   <div class="stat"><div class="label">Publications Buzz en attente</div><div class="value" id="sBuzz">—</div><div class="hint">Images à vérifier</div></div>
+   <div class="stat"><div class="label">Dépôts validés</div><div class="value" id="sDepTotal">—</div><div class="hint">Montant cumulé validé</div></div>
+   <div class="stat"><div class="label">Retraits en attente</div><div class="value" id="sWithdrawals">—</div><div class="hint">Les nouveaux retraits sont suspendus</div></div>
+   <div class="stat"><div class="label">Produits disponibles</div><div class="value" id="sProducts">—</div><div class="hint">Produits actifs</div></div>
+   <div class="stat"><div class="label">Transactions</div><div class="value" id="sTransactions">—</div><div class="hint">Toutes catégories confondues</div></div>
+  </div>
+  <div class="panel"><div class="panel-head"><h2>Accès rapide</h2><button class="btn neutral" id="refreshStats">Actualiser</button></div><div class="panel-body toolbar">
+   <button class="btn primary" data-goto="deposits">Examiner les dépôts</button><button class="btn primary" data-goto="users">Gérer les utilisateurs</button><button class="btn primary" data-goto="buzz">Vérifier les publications</button>
+  </div></div>
+ </section>
+
+ <section class="section" id="page-deposits">
+  <div class="panel"><div class="panel-head"><h2>Demandes de dépôt en attente</h2><button class="btn neutral" id="refreshDeposits">Actualiser</button></div><div class="table-wrap" id="depositTable"><div class="loader">Chargement…</div></div></div>
+ </section>
+ <section class="section" id="page-withdrawals">
+  <div class="alert">Les nouveaux retraits sont actuellement désactivés au niveau de l'API et de la base de données. Cette rubrique sert à consulter et traiter les anciennes demandes encore en attente.</div>
+  <div class="panel"><div class="panel-head"><h2>Demandes de retrait non traitées</h2><button class="btn neutral" id="refreshWithdrawals">Actualiser</button></div><div class="table-wrap" id="withdrawalTable"><div class="loader">Chargement…</div></div></div>
+ </section>
+ <section class="section" id="page-users">
+  <div class="panel"><div class="panel-head"><h2>Gestion des utilisateurs</h2><div class="toolbar"><input class="search" id="userSearch" placeholder="Rechercher un numéro…"><button class="btn neutral" id="refreshUsers">Actualiser</button></div></div><div class="table-wrap" id="usersTable"><div class="loader">Chargement…</div></div></div>
+ </section>
+ <section class="section" id="page-buzz">
+  <div class="panel"><div class="panel-head"><h2>Publications à vérifier</h2><button class="btn neutral" id="refreshBuzz">Actualiser</button></div><div class="panel-body"><div class="buzz-grid" id="buzzGrid"><div class="loader">Chargement…</div></div></div></div>
+ </section>
+</main>
+</div>
+<nav class="bottom-nav" id="bottomNav">
+ <button class="active" data-page="stats"><b>▦</b>Stats</button><button data-page="deposits"><b>＋</b>Dépôts</button><button data-page="withdrawals"><b>↗</b>Retraits</button><button data-page="users"><b>♙</b>Utilisateurs</button><button data-page="buzz"><b>▧</b>Buzz</button>
+</nav>
+
+<div class="modal-back" id="modalBack"><div class="modal" id="modalBox"></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const API="https://qixliwrgscpdjplvglvq.supabase.co/functions/v1/cargil-api";
+const token=localStorage.getItem("cargil_admin_session_token")||localStorage.getItem("cargil_session_token")||"";
+let usersCache=[],depositCache=[],withdrawalCache=[],buzzCache=[];
+const $=id=>document.getElementById(id);
+const money=n=>Number(n||0).toLocaleString("fr-FR")+" FCFA";
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const date=s=>s?new Date(s).toLocaleString("fr-FR",{dateStyle:"short",timeStyle:"short"}):"—";
+async function api(action,data={}){const r=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json","Authorization":"Bearer "+token},body:JSON.stringify({action,...data})});const d=await r.json().catch(()=>({error:"Réponse serveur invalide"}));if(!r.ok||d.error)throw new Error(d.error||"Erreur serveur");return d}
+function toast(s){$("toast").textContent=s;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),3200)}
+function showError(el,e){el.innerHTML='<div class="empty">Impossible de charger les données.<br><small>'+esc(e.message)+'</small></div>'}
+function go(page){document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));$("page-"+page).classList.add("active");document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x.dataset.page===page));const titles={stats:["Vue générale","Suivi et contrôle de la plateforme"],deposits:["Dépôts","Validation et rejet des demandes"],withdrawals:["Retraits","Consultation des demandes existantes"],users:["Utilisateurs","Gestion des comptes et des soldes"],buzz:["Buzz / Publications","Examen des images et attribution des récompenses"]};$("pageTitle").textContent=titles[page][0];$("pageSub").textContent=titles[page][1];if(page==="stats")loadStats();if(page==="deposits")loadDeposits();if(page==="withdrawals")loadWithdrawals();if(page==="users")loadUsers();if(page==="buzz")loadBuzz()}
+document.querySelectorAll("[data-page]").forEach(x=>x.addEventListener("click",()=>go(x.dataset.page)));
+document.querySelectorAll("[data-goto]").forEach(x=>x.addEventListener("click",()=>go(x.dataset.goto)));
+async function boot(){if(!token){location.href="admin-connexion.html";return}try{await api("admin_stats");loadStats()}catch(e){localStorage.removeItem("cargil_admin_session_token");location.href="admin-connexion.html"}}
+async function loadStats(){try{const d=await api("admin_stats");$("sUsers").textContent=d.utilisateurs.toLocaleString("fr-FR");$("sActive").textContent="Comptes actifs : "+d.utilisateurs_actifs;$("sBalance").textContent=money(d.solde_total);$("sDeposits").textContent=d.depots_en_attente;$("sBuzz").textContent=d.buzz_en_attente;$("sDepTotal").textContent=money(d.depots_total);$("sWithdrawals").textContent=d.retraits_en_attente;$("sProducts").textContent=d.produits_actifs;$("sTransactions").textContent=d.transactions}catch(e){toast(e.message)}}
+const tableEmpty=(cols,msg)=>`<div class="empty">${msg}</div>`;
+async function loadDeposits(){const el=$("depositTable");el.innerHTML='<div class="loader">Chargement…</div>';try{const d=await api("admin_queue");depositCache=d.deposits||[];if(!depositCache.length){el.innerHTML=tableEmpty(0,"Aucun dépôt en attente.");return}el.innerHTML=`<table><thead><tr><th>Utilisateur</th><th>Pays</th><th>Montant</th><th>Payeur</th><th>Code de validation BF</th><th>Date</th><th>Action</th></tr></thead><tbody>${depositCache.map(x=>`<tr><td>${esc(x.utilisateurs?.telephone||"—")}</td><td>${esc(x.utilisateurs?.pays_id||"—")}</td><td><b>${money(x.montant)}</b></td><td>${esc(x.numero_payeur||"—")}</td><td><b>${esc(x.code_validation_bf||"—")}</b></td><td>${date(x.created_at)}</td><td><button class="btn success" onclick="decideDeposit('${x.id}',true)">Valider</button> <button class="btn danger" onclick="decideDeposit('${x.id}',false)">Rejeter</button></td></tr>`).join("")}</tbody></table>`}catch(e){showError(el,e)}}
+async function decideDeposit(id,yes){let motif="";if(!yes){motif=prompt("Motif du rejet :")||"";if(!motif.trim())return}if(!confirm(yes?"Confirmer la validation de ce dépôt ?":"Confirmer le rejet de ce dépôt ?"))return;try{await api("admin_deposit_decision",{demande_id:id,valider:yes,motif});toast(yes?"Dépôt validé.":"Dépôt rejeté.");loadDeposits();loadStats()}catch(e){toast(e.message)}}
+async function loadWithdrawals(){const el=$("withdrawalTable");el.innerHTML='<div class="loader">Chargement…</div>';try{const d=await api("admin_queue");withdrawalCache=d.withdrawals||[];if(!withdrawalCache.length){el.innerHTML=tableEmpty(0,"Aucune ancienne demande de retrait en attente.");return}el.innerHTML=`<table><thead><tr><th>Utilisateur</th><th>Montant demandé</th><th>Frais</th><th>Net</th><th>Bénéficiaire</th><th>Date</th><th>Action</th></tr></thead><tbody>${withdrawalCache.map(x=>`<tr><td>${esc(x.utilisateurs?.telephone||"—")} (${esc(x.utilisateurs?.pays_id||"")})</td><td>${money(x.montant_demande)}</td><td>${money(x.frais)}</td><td><b>${money(x.montant_net)}</b></td><td>${esc(x.comptes_retrait?.numero_beneficiaire||"—")}<br><small>${esc(x.comptes_retrait?.nom_beneficiaire||"")}</small></td><td>${date(x.created_at)}</td><td><button class="btn success" onclick="decideWithdrawal('${x.id}',true)">Valider</button> <button class="btn danger" onclick="decideWithdrawal('${x.id}',false)">Rejeter</button></td></tr>`).join("")}</tbody></table>`}catch(e){showError(el,e)}}
+async function decideWithdrawal(id,yes){let motif="";if(!yes){motif=prompt("Motif du rejet :")||"";if(!motif.trim())return}if(!confirm(yes?"Confirmer le traitement de cette ancienne demande ?":"Rejeter cette demande et rembourser le montant ?"))return;try{await api("admin_withdrawal_decision",{demande_id:id,valider:yes,motif});toast("Demande traitée.");loadWithdrawals();loadStats()}catch(e){toast(e.message)}}
+async function loadUsers(){const el=$("usersTable");el.innerHTML='<div class="loader">Chargement…</div>';try{const d=await api("admin_users");usersCache=d.utilisateurs||[];renderUsers()}catch(e){showError(el,e)}}
+function renderUsers(){const el=$("usersTable"),q=$("userSearch").value.trim().toLowerCase();const arr=usersCache.filter(x=>(x.telephone+" "+x.pays_id).toLowerCase().includes(q));if(!arr.length){el.innerHTML=tableEmpty(0,"Aucun utilisateur trouvé.");return}el.innerHTML=`<table><thead><tr><th>Utilisateur</th><th>Pays</th><th>Rôle</th><th>Solde</th><th>Statut</th><th>Inscription</th><th>Gestion</th></tr></thead><tbody>${arr.map(x=>`<tr><td><div class="user-cell"><div class="avatar">${esc((x.telephone||"?").slice(-2))}</div><b>${esc(x.telephone)}</b></div></td><td>${esc(x.pays_id)}</td><td>${x.role==="admin"?'<span class="status pending">ADMIN</span>':'Utilisateur'}</td><td><b>${money(x.solde)}</b></td><td>${x.actif?'<span class="status ok">Actif</span>':'<span class="status blocked">Bloqué</span>'}</td><td>${date(x.created_at)}</td><td><button class="btn gold" onclick="openBalance('${x.id}')">Modifier solde</button> <button class="btn ${x.actif?'danger':'success'}" onclick="toggleUser('${x.id}',${!x.actif},'${esc(x.telephone)}')">${x.actif?'Bloquer':'Débloquer'}</button></td></tr>`).join("")}</tbody></table>`}
+$("userSearch").addEventListener("input",renderUsers);
+async function toggleUser(id,actif,phone){if(!confirm((actif?"Débloquer":"Bloquer")+" le compte "+phone+" ?"))return;try{await api("admin_user_toggle",{utilisateur_id:id,actif,telephone:phone});toast(actif?"Compte débloqué.":"Compte bloqué.");loadUsers()}catch(e){toast(e.message)}}
+function modal(content){$("modalBox").innerHTML=content;$("modalBack").classList.add("show")}
+function closeModal(){$("modalBack").classList.remove("show")}
+$("modalBack").addEventListener("click",e=>{if(e.target===$("modalBack"))closeModal()});
+function openBalance(id){const u=usersCache.find(x=>x.id===id);modal(`<h3>Modifier le solde</h3><div class="muted">${esc(u.telephone)} · Solde actuel : <b>${money(u.solde)}</b></div><div class="field"><label>Opération</label><select id="balMode"><option value="add">Ajouter au solde</option><option value="remove">Retirer du solde</option></select></div><div class="field"><label>Montant (FCFA)</label><input id="balAmount" type="number" min="1" step="1" placeholder="Ex. 5000"></div><div class="field"><label>Motif obligatoire</label><textarea id="balReason" rows="2" placeholder="Raison de l'ajustement"></textarea></div><div class="modal-actions"><button class="btn neutral" onclick="closeModal()">Annuler</button><button class="btn primary" onclick="saveBalance('${id}')">Confirmer</button></div>`)}
+async function saveBalance(id){const amount=Number($("balAmount").value),mode=$("balMode").value,motif=$("balReason").value.trim();if(!Number.isSafeInteger(amount)||amount<1||!motif){toast("Montant et motif obligatoires.");return}if(!confirm("Confirmer cet ajustement du solde ?"))return;try{const d=await api("admin_user_balance",{utilisateur_id:id,montant:mode==="add"?amount:-amount,motif});closeModal();toast("Solde mis à jour : "+money(d.nouveau_solde));loadUsers();loadStats()}catch(e){toast(e.message)}}
+async function loadBuzz(){const el=$("buzzGrid");el.innerHTML='<div class="loader">Chargement…</div>';try{const d=await api("admin_buzz_queue");buzzCache=d.publications||[];if(!buzzCache.length){el.innerHTML=tableEmpty(0,"Aucune publication en attente.");return}el.innerHTML=buzzCache.map(x=>`<article class="buzz-card"><div class="buzz-images"><img src="${esc(x.image_url||"")}" alt="Image 1" onerror="this.alt='Image indisponible'"><img src="${esc(x.image_url_2||"")}" alt="Image 2" onerror="this.alt='Image indisponible'"></div><div class="buzz-content"><div class="buzz-meta">${esc(x.utilisateurs?.telephone||"Utilisateur")} · ${esc(x.utilisateurs?.pays_id||"")} · ${date(x.created_at)}</div><p>${esc(x.texte||"Publication sans description")}</p><div class="buzz-meta">Analyse : ${esc(x.analyse_statut||"Non renseignée")}</div><div class="buzz-actions"><input class="reward" type="number" min="1" step="1" id="reward-${x.id}" placeholder="Récompense FCFA"><button class="btn success" onclick="decideBuzz('${x.id}',true)">Valider + récompenser</button><button class="btn danger" onclick="decideBuzz('${x.id}',false)">Rejeter</button></div></div></article>`).join("")}catch(e){showError(el,e)}}
+async function decideBuzz(id,yes){let amount=0,motif="";if(yes){amount=Number($("reward-"+id).value);if(!Number.isSafeInteger(amount)||amount<1){toast("Saisis un montant de récompense valide.");return}}else{motif=prompt("Motif du rejet :")||"";if(!motif.trim())return}if(!confirm(yes?"Valider cette publication et créditer "+money(amount)+" ?":"Rejeter cette publication ?"))return;try{await api("admin_buzz_decision",{publication_id:id,valider:yes,montant_recompense:amount,motif});toast(yes?"Publication validée et récompense créditée.":"Publication rejetée.");loadBuzz();loadStats()}catch(e){toast(e.message)}}
+$("refreshStats").onclick=loadStats;$("refreshDeposits").onclick=loadDeposits;$("refreshWithdrawals").onclick=loadWithdrawals;$("refreshUsers").onclick=loadUsers;$("refreshBuzz").onclick=loadBuzz;
+async function logout(){try{await api("logout")}catch(e){}localStorage.removeItem("cargil_admin_session_token");localStorage.removeItem("cargil_session_token");location.href="admin-connexion.html"}
+$("logoutTop").onclick=logout;
+boot();
+</script>
+</body></html>
